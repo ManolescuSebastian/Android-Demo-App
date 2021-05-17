@@ -1,4 +1,4 @@
-package com.tekydevelop.radixfm.details
+package com.tekydevelop.radixfm.top
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class AlbumDetailsViewModel(private val topAlbumsUseCase: TopAlbumsUseCase) : ViewModel() {
+class TopAlbumsViewModel(private val topAlbumsUseCase: TopAlbumsUseCase) : ViewModel() {
 
     val topAlbums: LiveData<TopAlbumsData> get() = _topAlbums
     private val _topAlbums = MutableLiveData<TopAlbumsData>()
@@ -22,10 +22,8 @@ class AlbumDetailsViewModel(private val topAlbumsUseCase: TopAlbumsUseCase) : Vi
     fun getTopAlbumData() {
         viewModelScope.launch {
             topAlbumsUseCase.getTopAlbums().onStart {
-                // start progress indicator
             }.catch { e ->
                 _error.value = e.localizedMessage
-                // treat error cases
             }.collect {
                 _topAlbums.value = it
             }

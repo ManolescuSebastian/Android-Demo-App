@@ -1,5 +1,7 @@
 package com.tekydevelop.domain.model
 
+import java.io.Serializable
+
 data class Album(
     val name: String,
     val url: String,
@@ -8,5 +10,5 @@ data class Album(
     val attr: AlbumAttr,
     val image: List<Image>,
     val playCount: String
-)
+) : Serializable
 

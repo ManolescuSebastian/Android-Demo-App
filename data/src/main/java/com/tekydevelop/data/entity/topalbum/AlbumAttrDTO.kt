@@ -1,7 +1,7 @@
-package com.tekydevelop.data.entity
+package com.tekydevelop.data.entity.topalbum
 
 import com.tekydevelop.data.common.DomainMappable
-import com.tekydevelop.domain.model.AlbumAttr
+import com.tekydevelop.domain.model.topalbum.AlbumAttr
 
 data class AlbumAttrDTO(
     val rank: String

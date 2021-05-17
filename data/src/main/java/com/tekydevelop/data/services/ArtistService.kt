@@ -1,6 +1,6 @@
 package com.tekydevelop.data.services
 
-import com.tekydevelop.data.entity.TopAlbumsResponse
+import com.tekydevelop.data.entity.topalbum.TopAlbumsResponse
 import retrofit2.http.GET
 
 interface ArtistService {

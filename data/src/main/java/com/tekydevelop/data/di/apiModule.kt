@@ -7,7 +7,10 @@ import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tekydevelop.data.BuildConfig
 import com.tekydevelop.data.repository.artist.TopAlbumsDataRepo
+import com.tekydevelop.data.repository.search.SearchDataRepo
+import com.tekydevelop.data.services.AlbumService
 import com.tekydevelop.data.services.ArtistService
+import com.tekydevelop.domain.repository.SearchRepository
 import com.tekydevelop.domain.repository.TopAlbumsRepository
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -52,6 +55,8 @@ val apiModule = module {
     single { provideRetrofit(get(), get()) }
 
     single<ArtistService> { get<Retrofit>().create(ArtistService::class.java) }
+    single<AlbumService> { get<Retrofit>().create(AlbumService::class.java) }
 
     single<TopAlbumsRepository> { TopAlbumsDataRepo(get()) }
+    single<SearchRepository> { SearchDataRepo(get()) }
 }

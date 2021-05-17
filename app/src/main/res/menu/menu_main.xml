@@ -4,7 +4,8 @@
     tools:context="com.tekydevelop.radixfm.activity.MainActivity">
     <item
         android:id="@+id/action_search"
-        android:orderInCategory="100"
         android:icon="@drawable/ic_search"
+        android:orderInCategory="100"
+        android:title="Search"
         app:showAsAction="always" />
 </menu>

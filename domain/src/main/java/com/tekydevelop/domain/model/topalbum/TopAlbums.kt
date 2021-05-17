@@ -1,4 +1,4 @@
-package com.tekydevelop.domain.model
+package com.tekydevelop.domain.model.topalbum
 
 data class TopAlbums(
     val albums: List<Album>,

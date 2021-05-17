@@ -1,6 +1,6 @@
 package com.tekydevelop.domain.usecase
 
-import com.tekydevelop.domain.model.TopAlbumsData
+import com.tekydevelop.domain.model.topalbum.TopAlbumsData
 import com.tekydevelop.domain.repository.TopAlbumsRepository
 import kotlinx.coroutines.flow.Flow
 

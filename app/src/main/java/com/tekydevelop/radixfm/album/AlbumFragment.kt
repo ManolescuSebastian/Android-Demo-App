@@ -15,18 +15,31 @@ class AlbumFragment : BaseFragment<FragmentAlbumsBinding>(FragmentAlbumsBinding:
 
     private val albumViewModel: AlbumViewModel by viewModel()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_Album_to_Details)
         }
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val searchMenuItem: MenuItem = menu.findItem(R.id.action_search)
+        searchMenuItem.setOnMenuItemClickListener {
+            findNavController().navigate(R.id.action_Any_to_Search)
+            true
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-           R.id.action_search -> {
+            R.id.action_search -> {
                 findNavController().navigate(R.id.action_Any_to_Search)
                 true
             }

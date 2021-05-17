@@ -1,20 +1,26 @@
 package com.tekydevelop.radixfm.details
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
-import com.tekydevelop.domain.model.Album
+import com.tekydevelop.domain.model.topalbum.Album
 import com.tekydevelop.radixfm.R
 import com.tekydevelop.radixfm.base.BaseFragment
 import com.tekydevelop.radixfm.databinding.FragmentDetailsBinding
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBinding::inflate) {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
-        initEvents()
     }
 
     private fun initData() {
@@ -31,9 +37,10 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
         }
     }
 
-    private fun initEvents() {
-
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val searchMenuItem: MenuItem = menu.findItem(R.id.action_search)
+        searchMenuItem.isVisible = false
     }
-
 
 }

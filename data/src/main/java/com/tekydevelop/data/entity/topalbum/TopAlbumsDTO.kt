@@ -1,8 +1,8 @@
-package com.tekydevelop.data.entity
+package com.tekydevelop.data.entity.topalbum
 
 import com.google.gson.annotations.SerializedName
 import com.tekydevelop.data.common.DomainMappable
-import com.tekydevelop.domain.model.TopAlbums
+import com.tekydevelop.domain.model.topalbum.TopAlbums
 
 data class TopAlbumsDTO(
     @SerializedName("album")

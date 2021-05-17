@@ -1,8 +1,8 @@
-package com.tekydevelop.data.entity
+package com.tekydevelop.data.entity.topalbum
 
 import com.google.gson.annotations.SerializedName
 import com.tekydevelop.data.common.DomainMappable
-import com.tekydevelop.domain.model.Album
+import com.tekydevelop.domain.model.topalbum.Album
 
 data class AlbumDTO(
     val name: String,

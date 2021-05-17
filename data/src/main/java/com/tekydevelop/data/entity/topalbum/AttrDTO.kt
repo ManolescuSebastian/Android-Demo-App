@@ -1,7 +1,7 @@
-package com.tekydevelop.data.entity
+package com.tekydevelop.data.entity.topalbum
 
 import com.tekydevelop.data.common.DomainMappable
-import com.tekydevelop.domain.model.Attr
+import com.tekydevelop.domain.model.topalbum.Attr
 
 data class AttrDTO(
     val page: String,

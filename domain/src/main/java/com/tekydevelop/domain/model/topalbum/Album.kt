@@ -1,4 +1,4 @@
-package com.tekydevelop.domain.model
+package com.tekydevelop.domain.model.topalbum
 
 import java.io.Serializable
 

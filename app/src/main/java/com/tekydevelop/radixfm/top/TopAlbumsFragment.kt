@@ -1,6 +1,7 @@
 package com.tekydevelop.radixfm.top
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,11 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
     private val topAlbumsViewModel: TopAlbumsViewModel by viewModel()
     private lateinit var albumAdapter: AlbumAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -27,7 +33,6 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
         showLoadingIndicator(true)
 
         topAlbumsViewModel.getTopAlbumData()
-
         albumAdapter = AlbumAdapter {
 
             val bundle = Bundle().apply {
@@ -52,6 +57,16 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
         topAlbumsViewModel.error.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), "Error: $error", Toast.LENGTH_LONG).show()
             showLoadingIndicator(false)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search -> {
+                findNavController().navigate(R.id.action_Any_to_Search)
+                true
+            }
+            else -> true
         }
     }
 

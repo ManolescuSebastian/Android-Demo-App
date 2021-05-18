@@ -1,9 +1,9 @@
 package com.tekydevelop.radixfm.di
 
-import com.tekydevelop.radixfm.album.AlbumViewModel
-import com.tekydevelop.radixfm.details.DetailsViewModel
-import com.tekydevelop.radixfm.search.SearchViewModel
-import com.tekydevelop.radixfm.top.TopAlbumsViewModel
+import com.tekydevelop.radixfm.ui.album.AlbumViewModel
+import com.tekydevelop.radixfm.ui.details.DetailsViewModel
+import com.tekydevelop.radixfm.ui.search.SearchViewModel
+import com.tekydevelop.radixfm.ui.top.TopAlbumsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

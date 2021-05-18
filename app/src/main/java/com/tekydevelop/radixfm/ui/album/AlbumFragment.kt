@@ -1,4 +1,4 @@
-package com.tekydevelop.radixfm.album
+package com.tekydevelop.radixfm.ui.album
 
 import android.os.Bundle
 import android.view.Menu
@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tekydevelop.radixfm.R
-import com.tekydevelop.radixfm.album.adapter.AlbumAdapter
 import com.tekydevelop.radixfm.base.BaseFragment
 import com.tekydevelop.radixfm.databinding.FragmentAlbumsBinding
+import com.tekydevelop.radixfm.ui.album.adapter.AlbumAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

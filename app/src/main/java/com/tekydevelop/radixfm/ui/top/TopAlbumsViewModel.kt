@@ -1,4 +1,4 @@
-package com.tekydevelop.radixfm.top
+package com.tekydevelop.radixfm.ui.top
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

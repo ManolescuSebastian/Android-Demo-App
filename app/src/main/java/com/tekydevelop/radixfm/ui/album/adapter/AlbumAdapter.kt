@@ -1,4 +1,4 @@
-package com.tekydevelop.radixfm.search.adapter
+package com.tekydevelop.radixfm.ui.album.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.tekydevelop.domain.model.search.SearchAlbum
+import com.tekydevelop.domain.model.entity.AlbumItem
 import com.tekydevelop.radixfm.R
 
-class SearchAdapter(private val listener: (SearchAlbum) -> Unit) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class AlbumAdapter(private val listener: (AlbumItem) -> Unit) : RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
 
     private var context: Context? = null
-    private var searchAlbums: List<SearchAlbum> = mutableListOf()
+    private var albumItem: List<AlbumItem> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val albumName: TextView = view.findViewById(R.id.album_name)
@@ -26,22 +26,21 @@ class SearchAdapter(private val listener: (SearchAlbum) -> Unit) : RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.top_item_album, parent, false)
+            .inflate(R.layout.album_item, parent, false)
         context = parent.context
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = searchAlbums[position]
+        val item = albumItem[position]
 
-        holder.albumName.text = item.name
+        holder.albumName.text = item.album
         holder.artistName.text = item.artist
         holder.itemRoot.setOnClickListener { listener(item) }
 
-        if (context != null && item.image.isNotEmpty()) {
-            val imageCount = (item.image.size - 1)
+        if (context != null) {
             Glide.with(context!!)
-                .load(item.image[imageCount].url)
+                .load(item.imageUrl)
                 .centerCrop()
                 .error(R.drawable.placeholder)
                 .into(holder.albumImage)
@@ -49,11 +48,11 @@ class SearchAdapter(private val listener: (SearchAlbum) -> Unit) : RecyclerView.
     }
 
     override fun getItemCount(): Int {
-        return searchAlbums.size
+        return albumItem.size
     }
 
-    fun update(searchAlbums: List<SearchAlbum>) {
-        this.searchAlbums = searchAlbums
+    fun update(albumItem: List<AlbumItem>) {
+        this.albumItem = albumItem
         notifyDataSetChanged()
     }
 }

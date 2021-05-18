@@ -1,4 +1,4 @@
-package com.tekydevelop.radixfm.top.adapter
+package com.tekydevelop.radixfm.ui.top.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

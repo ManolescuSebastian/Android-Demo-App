@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RadixFM">
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.tekydevelop.radixfm.ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.RadixFM.NoActionBar">
             <intent-filter>

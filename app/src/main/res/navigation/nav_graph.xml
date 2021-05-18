@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/my_albums_fragment"
-        android:name="com.tekydevelop.radixfm.album.AlbumFragment"
+        android:name="com.tekydevelop.radixfm.ui.album.AlbumFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_albums">
 
@@ -21,11 +21,13 @@
 
         <action
             android:id="@+id/action_MyAlbums_to_Details"
-            app:destination="@id/details_fragment" />
+            app:destination="@id/details_fragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/top_albums_fragment"
-        android:name="com.tekydevelop.radixfm.top.TopAlbumsFragment"
+        android:name="com.tekydevelop.radixfm.ui.top.TopAlbumsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_top_albums">
 
@@ -43,12 +45,12 @@
     </fragment>
     <fragment
         android:id="@+id/details_fragment"
-        android:name="com.tekydevelop.radixfm.details.DetailsFragment"
+        android:name="com.tekydevelop.radixfm.ui.details.DetailsFragment"
         android:label="Album Details"
         tools:layout="@layout/fragment_details" />
     <fragment
         android:id="@+id/search_fragment"
-        android:name="com.tekydevelop.radixfm.search.SearchFragment"
+        android:name="com.tekydevelop.radixfm.ui.search.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search">
 

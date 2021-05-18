@@ -1,4 +1,4 @@
-package com.tekydevelop.radixfm.search
+package com.tekydevelop.radixfm.ui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

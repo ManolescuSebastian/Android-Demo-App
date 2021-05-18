@@ -1,7 +1,6 @@
-package com.tekydevelop.radixfm.search
+package com.tekydevelop.radixfm.ui.top
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -9,17 +8,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tekydevelop.radixfm.R
 import com.tekydevelop.radixfm.base.BaseFragment
-import com.tekydevelop.radixfm.databinding.FragmentSearchBinding
-import com.tekydevelop.radixfm.search.adapter.SearchAdapter
-import com.tekydevelop.radixfm.util.KeyboardUtils
+import com.tekydevelop.radixfm.databinding.FragmentTopAlbumsBinding
+import com.tekydevelop.radixfm.ui.top.adapter.TopAlbumAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbumsBinding::inflate) {
 
-class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
-
-    private val searchViewModel: SearchViewModel by viewModel()
-
-    private lateinit var searchAdapter: SearchAdapter
+    private val topAlbumsViewModel: TopAlbumsViewModel by viewModel()
+    private lateinit var topAlbumAdapter: TopAlbumAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +26,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         super.onViewCreated(view, savedInstanceState)
 
         initData()
-        initEvents()
-        initObservers()
+        initObserver()
     }
 
     private fun initData() {
-        searchAdapter = SearchAdapter {
+        showLoadingIndicator(true)
+
+        topAlbumsViewModel.getTopAlbumData()
+        topAlbumAdapter = TopAlbumAdapter {
+            if (it.image.isNotEmpty()) {
+                val imageCount = (it.image.size - 1)
+                topAlbumsViewModel.insertSelectedAlbum(it.mbid, it.name, it.artist.name, it.image[imageCount].url)
+            }
+
             Bundle().apply {
                 if (it.mbid.isNullOrEmpty()) {
                     Toast.makeText(requireContext(), "Album missing data (no mbid)", Toast.LENGTH_SHORT).show()
@@ -46,36 +49,32 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
         }
 
-        binding.searchAlbumsRecycler.apply {
+        binding.albumsRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = searchAdapter
+            adapter = topAlbumAdapter
         }
     }
 
-    private fun initEvents() {
-        binding.searchAction.setOnClickListener {
-            searchViewModel.searchAlbumByName(binding.searchTextInputField.text.toString())
-            showLoadingIndicator(true)
-            KeyboardUtils.hideKeyboard(binding.searchTextInputField)
-        }
-    }
-
-    private fun initObservers() {
-        searchViewModel.searchAlbums.observe(viewLifecycleOwner) {
-            searchAdapter.update(it.searchResultData.albumMatches.album)
+    private fun initObserver() {
+        topAlbumsViewModel.topAlbums.observe(viewLifecycleOwner) {
+            topAlbumAdapter.update(it.topAlbums.albums)
             showLoadingIndicator(false)
         }
 
-        searchViewModel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "Error: $it", Toast.LENGTH_SHORT).show()
+        topAlbumsViewModel.error.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(requireContext(), "Error: $error", Toast.LENGTH_LONG).show()
             showLoadingIndicator(false)
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-        val searchMenuItem: MenuItem = menu.findItem(R.id.action_search)
-        searchMenuItem.isVisible = false
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search -> {
+                findNavController().navigate(R.id.action_Any_to_Search)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun showLoadingIndicator(show: Boolean) {

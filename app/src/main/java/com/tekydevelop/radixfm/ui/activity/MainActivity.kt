@@ -1,4 +1,4 @@
-package com.tekydevelop.radixfm.activity
+package com.tekydevelop.radixfm.ui.activity
 
 import android.os.Bundle
 import android.view.Menu

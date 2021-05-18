@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/MyAlbumsFragment">
+
+    <fragment
+        android:id="@+id/MyAlbumsFragment"
+        android:name="com.tekydevelop.radixfm.album.AlbumFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_albums">
+
+        <action
+            android:id="@+id/action_MyAlbum_to_TopAlbums"
+            app:destination="@id/TopAlbumsFragment" />
+
+        <action
+            android:id="@+id/action_Any_to_Search"
+            app:destination="@id/SearchFragment" />
+
+        <action
+            android:id="@+id/action_MyAlbums_to_Details"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/TopAlbumsFragment"
+        android:name="com.tekydevelop.radixfm.top.TopAlbumsFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_top_albums">
+
+        <action
+            android:id="@+id/action_TopAlbums_to_MyAlbums"
+            app:destination="@id/MyAlbumsFragment" />
+
+        <action
+            android:id="@+id/action_Top_to_Details"
+            app:destination="@id/detailsFragment" />
+
+        <action
+            android:id="@+id/action_Any_to_Search"
+            app:destination="@id/SearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.tekydevelop.radixfm.details.DetailsFragment"
+        android:label="Album Details"
+        tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/SearchFragment"
+        android:name="com.tekydevelop.radixfm.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_Top_to_Details"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+
+</navigation>

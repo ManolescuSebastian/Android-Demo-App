@@ -1,0 +1,4 @@
+rootProject.name = "RadixFM"
+include ':app'
+include ':domain'
+include ':data'

@@ -43,7 +43,7 @@ class TopAlbumAdapter(private val listener: (Album) -> Unit) : RecyclerView.Adap
             Glide.with(context!!)
                 .load(item.image[imageCount].url)
                 .centerCrop()
-                .error(R.drawable.placeholder)
+                .error(R.drawable.ic_placeholder)
                 .into(holder.albumImage)
         }
     }

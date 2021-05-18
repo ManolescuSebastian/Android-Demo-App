@@ -43,7 +43,7 @@ class SearchAdapter(private val listener: (SearchAlbum) -> Unit) : RecyclerView.
             Glide.with(context!!)
                 .load(item.image[imageCount].url)
                 .centerCrop()
-                .error(R.drawable.placeholder)
+                .error(R.drawable.ic_placeholder)
                 .into(holder.albumImage)
         }
     }

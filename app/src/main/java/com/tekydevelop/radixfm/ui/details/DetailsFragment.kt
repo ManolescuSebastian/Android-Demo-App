@@ -61,7 +61,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                     Glide.with(requireContext())
                         .load(it.album.image[imageCount].url)
                         .centerCrop()
-                        .error(R.drawable.placeholder)
+                        .error(R.drawable.ic_placeholder)
                         .into(binding.albumCover)
                 }
             }

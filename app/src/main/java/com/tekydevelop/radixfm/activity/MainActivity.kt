@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.MyAlbumsFragment, R.id.TopAlbumsFragment
+                R.id.my_albums_fragment, R.id.top_albums_fragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

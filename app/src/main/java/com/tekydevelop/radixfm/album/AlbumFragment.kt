@@ -28,10 +28,6 @@ class AlbumFragment : BaseFragment<FragmentAlbumsBinding>(FragmentAlbumsBinding:
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_MyAlbum_to_TopAlbums)
-        }
-
         initData()
         initObserver()
     }

@@ -43,7 +43,7 @@ class AlbumFragment : BaseFragment<FragmentAlbumsBinding>(FragmentAlbumsBinding:
                 findNavController().navigate(R.id.action_Any_to_Search)
                 true
             }
-            else -> true
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

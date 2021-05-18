@@ -6,6 +6,6 @@ import retrofit2.http.Query
 
 interface AlbumService {
 
-    @GET("?method=album.search&api_key=b3411df1960d46dbc4736cb8c32544e9&format=json")
+    @GET("?method=album.search&format=json")
     suspend fun searchAlbum(@Query("album") albumName: String): SearchResponse
 }

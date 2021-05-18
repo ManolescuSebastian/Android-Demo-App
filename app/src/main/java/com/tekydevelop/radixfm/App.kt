@@ -2,6 +2,7 @@ package com.tekydevelop.radixfm
 
 import android.app.Application
 import com.tekydevelop.data.di.apiModule
+import com.tekydevelop.data.di.dbModule
 import com.tekydevelop.domain.di.domainModule
 import com.tekydevelop.radixfm.di.appModule
 import org.koin.android.ext.koin.androidContext
@@ -18,7 +19,7 @@ class App : Application() {
     private fun initKoin() {
         startKoin {
             androidContext(this@App)
-            modules(listOf(appModule, domainModule, apiModule))
+            modules(listOf(appModule, domainModule, apiModule, dbModule))
         }
     }
 }

@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tekydevelop.data.BuildConfig
+import com.tekydevelop.data.common.AuthInterceptor
 import com.tekydevelop.data.repository.artist.TopAlbumsDataRepo
 import com.tekydevelop.data.repository.search.SearchDataRepo
 import com.tekydevelop.data.services.AlbumService
@@ -28,8 +29,13 @@ val apiModule = module {
         return okhttp3.Cache(application.cacheDir, cacheSize.toLong())
     }
 
-    fun provideHttpClient(cache: okhttp3.Cache): OkHttpClient {
+    fun provideHttpClient(cache: okhttp3.Cache, interceptor: Interceptor): OkHttpClient {
         val okHttpClientBuilder = OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(interceptor)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .cache(cache)
 
         return okHttpClientBuilder.build()
@@ -50,7 +56,8 @@ val apiModule = module {
     }
 
     single { provideCache(androidApplication()) }
-    single { provideHttpClient(get()) }
+    single<Interceptor> { AuthInterceptor(get()) }
+    single { provideHttpClient(get(), get()) }
     single { provideGson() }
     single { provideRetrofit(get(), get()) }
 

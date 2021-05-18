@@ -1,7 +1,7 @@
 package com.tekydevelop.data.entity.topalbum
 
 import com.google.gson.annotations.SerializedName
-import com.tekydevelop.data.common.DomainMappable
+import com.tekydevelop.data.mapper.DomainMappable
 import com.tekydevelop.data.entity.common.AttrDTO
 import com.tekydevelop.data.entity.common.ArtistDTO
 import com.tekydevelop.data.entity.common.ImageDTO

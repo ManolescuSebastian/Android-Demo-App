@@ -1,4 +1,4 @@
-package com.tekydevelop.radixfm.search.adapter
+package com.tekydevelop.radixfm.top.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.tekydevelop.domain.model.search.SearchAlbum
+import com.tekydevelop.domain.model.topalbum.Album
 import com.tekydevelop.radixfm.R
 
-class SearchAdapter(private val listener: (SearchAlbum) -> Unit) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class TopAlbumAdapter(private val listener: (Album) -> Unit) : RecyclerView.Adapter<TopAlbumAdapter.ViewHolder>() {
 
     private var context: Context? = null
-    private var searchAlbums: List<SearchAlbum> = mutableListOf()
+    private var albums: List<Album> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val albumName: TextView = view.findViewById(R.id.album_name)
@@ -24,18 +24,18 @@ class SearchAdapter(private val listener: (SearchAlbum) -> Unit) : RecyclerView.
         val itemRoot: ConstraintLayout = view.findViewById(R.id.item_root)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.top_item_album, parent, false)
         context = parent.context
-        return SearchAdapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SearchAdapter.ViewHolder, position: Int) {
-        val item = searchAlbums[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = albums[position]
 
         holder.albumName.text = item.name
-        holder.artistName.text = item.artist
+        holder.artistName.text = item.artist.name
         holder.itemRoot.setOnClickListener { listener(item) }
 
         if (context != null) {
@@ -48,11 +48,12 @@ class SearchAdapter(private val listener: (SearchAlbum) -> Unit) : RecyclerView.
     }
 
     override fun getItemCount(): Int {
-        return searchAlbums.size
+        return albums.size
     }
 
-    fun update(searchAlbums: List<SearchAlbum>) {
-        this.searchAlbums = searchAlbums
+    fun update(albums: List<Album>) {
+        this.albums = albums
         notifyDataSetChanged()
     }
+
 }

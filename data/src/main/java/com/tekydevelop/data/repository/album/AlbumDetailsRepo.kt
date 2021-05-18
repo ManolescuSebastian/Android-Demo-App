@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 class AlbumDetailsRepo(private val albumService: AlbumService) : AlbumDetailsRepository {
     override suspend fun getAlbumDetails(mbid: String): Flow<AlbumInfoResult> {
         return flow {
+
             emit(albumService.getAlbumInfo(mbid).asDomain())
         }
     }

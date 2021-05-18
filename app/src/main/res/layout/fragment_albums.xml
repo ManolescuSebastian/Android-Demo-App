@@ -13,13 +13,16 @@
         app:layout_constraintBottom_toTopOf="@+id/button_first"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="5"
+        tools:listitem="@layout/album_item"/>
 
     <TextView
         android:id="@+id/no_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No favorite albums"
+        android:clipToPadding="false"
         android:textSize="21sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,5 +40,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    a
+
 </androidx.constraintlayout.widget.ConstraintLayout>

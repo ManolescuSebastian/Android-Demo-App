@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    viewModel { AlbumViewModel() }
+    viewModel { AlbumViewModel(get()) }
     viewModel { TopAlbumsViewModel(get(), get()) }
     viewModel { SearchViewModel(get()) }
     viewModel { DetailsViewModel(get()) }

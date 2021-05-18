@@ -1,6 +1,6 @@
 package com.tekydevelop.data.entity.topalbum
 
-import com.tekydevelop.data.common.DomainMappable
+import com.tekydevelop.data.mapper.DomainMappable
 import com.tekydevelop.domain.model.topalbum.TopAlbumAttr
 
 data class TopAlbumAttrDTO(

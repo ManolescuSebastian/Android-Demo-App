@@ -1,6 +1,6 @@
 package com.tekydevelop.data.entity.details
 
-import com.tekydevelop.data.common.DomainMappable
+import com.tekydevelop.data.mapper.DomainMappable
 import com.tekydevelop.data.entity.common.ArtistDTO
 import com.tekydevelop.domain.model.details.Track
 

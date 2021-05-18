@@ -12,12 +12,16 @@
         tools:layout="@layout/fragment_albums">
 
         <action
-            android:id="@+id/action_Album_to_Details"
+            android:id="@+id/action_MyAlbum_to_TopAlbums"
             app:destination="@id/TopAlbumsFragment" />
 
         <action
             android:id="@+id/action_Any_to_Search"
             app:destination="@id/SearchFragment" />
+
+        <action
+            android:id="@+id/action_MyAlbums_to_Details"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/TopAlbumsFragment"

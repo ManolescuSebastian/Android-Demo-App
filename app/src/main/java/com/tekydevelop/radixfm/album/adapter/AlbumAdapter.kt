@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.tekydevelop.domain.model.topalbum.Album
+import com.tekydevelop.domain.model.entity.AlbumItem
 import com.tekydevelop.radixfm.R
 
-class AlbumAdapter(private val listener: (Album) -> Unit) : RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
+class AlbumAdapter(private val listener: (AlbumItem) -> Unit) : RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
 
     private var context: Context? = null
-    private var albums: List<Album> = mutableListOf()
+    private var albumItem: List<AlbumItem> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val albumName: TextView = view.findViewById(R.id.album_name)
@@ -26,33 +26,33 @@ class AlbumAdapter(private val listener: (Album) -> Unit) : RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_album, parent, false)
+            .inflate(R.layout.album_item, parent, false)
         context = parent.context
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = albums[position]
+        val item = albumItem[position]
 
-        holder.albumName.text = item.name
-        holder.artistName.text = item.artist.name
+        holder.albumName.text = item.album
+        holder.artistName.text = item.artist
         holder.itemRoot.setOnClickListener { listener(item) }
 
         if (context != null) {
             //todo fix item.image[3]
             Glide.with(context!!)
-                .load(item.image[3].url)
+                .load(item.imageUrl)
                 .error(R.drawable.placeholder)
                 .into(holder.albumImage)
         }
     }
 
     override fun getItemCount(): Int {
-        return albums.size
+        return albumItem.size
     }
 
-    fun update(albums: List<Album>) {
-        this.albums = albums
+    fun update(albumItem: List<AlbumItem>) {
+        this.albumItem = albumItem
         notifyDataSetChanged()
     }
 

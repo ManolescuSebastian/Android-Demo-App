@@ -1,4 +1,4 @@
-package com.tekydevelop.data.common
+package com.tekydevelop.data.mapper
 
 interface DomainMappable<R> {
     fun asDomain(): R

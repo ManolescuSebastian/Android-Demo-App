@@ -7,15 +7,15 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tekydevelop.radixfm.R
-import com.tekydevelop.radixfm.album.adapter.AlbumAdapter
 import com.tekydevelop.radixfm.base.BaseFragment
 import com.tekydevelop.radixfm.databinding.FragmentTopAlbumsBinding
+import com.tekydevelop.radixfm.top.adapter.TopAlbumAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbumsBinding::inflate) {
 
     private val topAlbumsViewModel: TopAlbumsViewModel by viewModel()
-    private lateinit var albumAdapter: AlbumAdapter
+    private lateinit var topAlbumAdapter: TopAlbumAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +33,9 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
         showLoadingIndicator(true)
 
         topAlbumsViewModel.getTopAlbumData()
-        albumAdapter = AlbumAdapter {
-            //val imageCount = (it.image.size - 1)
-            //topAlbumsViewModel.insertSelectedAlbum(it.name, it.artist.name, it.image[imageCount].url)
+        topAlbumAdapter = TopAlbumAdapter {
+            val imageCount = (it.image.size - 1)
+            topAlbumsViewModel.insertSelectedAlbum(it.mbid, it.name, it.artist.name, it.image[imageCount].url)
 
             Bundle().apply {
                 if (it.mbid.isNullOrEmpty()) {
@@ -49,13 +49,13 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
 
         binding.albumsRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = albumAdapter
+            adapter = topAlbumAdapter
         }
     }
 
     private fun initObserver() {
         topAlbumsViewModel.topAlbums.observe(viewLifecycleOwner) {
-            albumAdapter.update(it.topAlbums.albums)
+            topAlbumAdapter.update(it.topAlbums.albums)
             showLoadingIndicator(false)
         }
 

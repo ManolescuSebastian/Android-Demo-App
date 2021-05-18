@@ -11,6 +11,7 @@ import com.tekydevelop.radixfm.R
 import com.tekydevelop.radixfm.base.BaseFragment
 import com.tekydevelop.radixfm.databinding.FragmentSearchBinding
 import com.tekydevelop.radixfm.search.adapter.SearchAdapter
+import com.tekydevelop.radixfm.util.KeyboardUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -48,6 +49,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.searchAction.setOnClickListener {
             searchViewModel.searchAlbumByName(binding.searchTextInputField.text.toString())
             showLoadingIndicator(true)
+            KeyboardUtils.hideKeyboard(binding.searchTextInputField)
         }
     }
 

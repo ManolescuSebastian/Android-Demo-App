@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.tekydevelop.domain.model.details.Track
 import com.tekydevelop.radixfm.R
+import com.tekydevelop.radixfm.util.Helper
 
-class TracksAdapter(private val listener: (Track) -> Unit) : RecyclerView.Adapter<TracksAdapter.ViewHolder>() {
+class TracksAdapter : RecyclerView.Adapter<TracksAdapter.ViewHolder>() {
 
     private var context: Context? = null
     private var trackList: List<Track> = mutableListOf()
@@ -19,7 +19,6 @@ class TracksAdapter(private val listener: (Track) -> Unit) : RecyclerView.Adapte
         val trackName: TextView = view.findViewById(R.id.track_name)
         val artistName: TextView = view.findViewById(R.id.artist_name)
         val duration: TextView = view.findViewById(R.id.duration)
-        val itemRoot: ConstraintLayout = view.findViewById(R.id.item_root)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,8 +33,7 @@ class TracksAdapter(private val listener: (Track) -> Unit) : RecyclerView.Adapte
 
         holder.trackName.text = item.name
         holder.artistName.text = item.artist.name
-        holder.duration.text = item.duration.toString()
-        holder.itemRoot.setOnClickListener { listener(item) }
+        holder.duration.text = Helper.formatDuration(item.duration)
     }
 
     override fun getItemCount(): Int {

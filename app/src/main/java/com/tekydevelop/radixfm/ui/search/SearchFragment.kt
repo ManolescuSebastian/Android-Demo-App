@@ -56,6 +56,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.searchAction.setOnClickListener {
             searchViewModel.searchAlbumByName(binding.searchTextInputField.text.toString())
             showLoadingIndicator(true)
+            binding.noDataFound.visibility = View.GONE
             KeyboardUtils.hideKeyboard(binding.searchTextInputField)
         }
     }
@@ -64,11 +65,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         searchViewModel.searchAlbums.observe(viewLifecycleOwner) {
             searchAdapter.update(it.searchResultData.albumMatches.album)
             showLoadingIndicator(false)
+
+            if (it.searchResultData.albumMatches.album.isEmpty()) {
+                binding.noDataFound.visibility = View.VISIBLE
+            } else {
+                binding.noDataFound.visibility = View.GONE
+            }
         }
 
         searchViewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), "Error: $it", Toast.LENGTH_SHORT).show()
             showLoadingIndicator(false)
+            binding.noDataFound.visibility = View.GONE
         }
     }
 

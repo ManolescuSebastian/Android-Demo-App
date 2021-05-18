@@ -24,24 +24,25 @@ class SearchAdapter(private val listener: (SearchAlbum) -> Unit) : RecyclerView.
         val itemRoot: ConstraintLayout = view.findViewById(R.id.item_root)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.top_item_album, parent, false)
         context = parent.context
-        return SearchAdapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SearchAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = searchAlbums[position]
 
         holder.albumName.text = item.name
         holder.artistName.text = item.artist
         holder.itemRoot.setOnClickListener { listener(item) }
 
-        if (context != null) {
-            //todo fix item.image[3]
+        if (context != null && item.image.isNotEmpty()) {
+            val imageCount = (item.image.size - 1)
             Glide.with(context!!)
-                .load(item.image[3].url)
+                .load(item.image[imageCount].url)
+                .centerCrop()
                 .error(R.drawable.placeholder)
                 .into(holder.albumImage)
         }

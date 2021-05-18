@@ -39,9 +39,9 @@ class AlbumAdapter(private val listener: (AlbumItem) -> Unit) : RecyclerView.Ada
         holder.itemRoot.setOnClickListener { listener(item) }
 
         if (context != null) {
-            //todo fix item.image[3]
             Glide.with(context!!)
                 .load(item.imageUrl)
+                .centerCrop()
                 .error(R.drawable.placeholder)
                 .into(holder.albumImage)
         }

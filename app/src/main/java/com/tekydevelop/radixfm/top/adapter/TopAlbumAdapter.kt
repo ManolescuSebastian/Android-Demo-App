@@ -38,10 +38,11 @@ class TopAlbumAdapter(private val listener: (Album) -> Unit) : RecyclerView.Adap
         holder.artistName.text = item.artist.name
         holder.itemRoot.setOnClickListener { listener(item) }
 
-        if (context != null) {
-            //todo fix item.image[3]
+        if (context != null && item.image.isNotEmpty()) {
+            val imageCount = (item.image.size - 1)
             Glide.with(context!!)
-                .load(item.image[3].url)
+                .load(item.image[imageCount].url)
+                .centerCrop()
                 .error(R.drawable.placeholder)
                 .into(holder.albumImage)
         }

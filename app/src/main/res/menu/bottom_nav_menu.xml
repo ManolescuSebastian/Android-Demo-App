@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/MyAlbumsFragment"
+        android:icon="@drawable/ic_grid"
+        android:title="@string/my_albums" />
+
+    <item
+        android:id="@+id/TopAlbumsFragment"
+        android:icon="@drawable/ic_list"
+        android:title="@string/top_albums" />
+
+</menu>

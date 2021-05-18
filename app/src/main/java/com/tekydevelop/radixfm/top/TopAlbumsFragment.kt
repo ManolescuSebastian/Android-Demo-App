@@ -34,8 +34,10 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
 
         topAlbumsViewModel.getTopAlbumData()
         topAlbumAdapter = TopAlbumAdapter {
-            val imageCount = (it.image.size - 1)
-            topAlbumsViewModel.insertSelectedAlbum(it.mbid, it.name, it.artist.name, it.image[imageCount].url)
+            if (it.image.isNotEmpty()) {
+                val imageCount = (it.image.size - 1)
+                topAlbumsViewModel.insertSelectedAlbum(it.mbid, it.name, it.artist.name, it.image[imageCount].url)
+            }
 
             Bundle().apply {
                 if (it.mbid.isNullOrEmpty()) {

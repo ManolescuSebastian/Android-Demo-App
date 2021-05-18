@@ -38,12 +38,15 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                 binding.albumName.text = it.album.name
                 binding.artistName.text = it.album.artist
 
-                val imageCount = (it.album.image.size - 1)
+                if (it.album.image.isNotEmpty()) {
+                    val imageCount = (it.album.image.size - 1)
 
-                Glide.with(requireContext())
-                    .load(it.album.image[imageCount].url)
-                    .error(R.drawable.placeholder)
-                    .into(binding.albumCover)
+                    Glide.with(requireContext())
+                        .load(it.album.image[imageCount].url)
+                        .centerCrop()
+                        .error(R.drawable.placeholder)
+                        .into(binding.albumCover)
+                }
             }
         }
 

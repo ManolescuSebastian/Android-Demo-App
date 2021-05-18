@@ -8,9 +8,9 @@ data class TopAlbumsDTO(
     @SerializedName("album")
     val albumDTO: List<AlbumDTO>,
     @SerializedName("@attr")
-    val attrDTO: AttrDTO
+    val topAlbumAttrDTO: TopAlbumAttrDTO
 ) : DomainMappable<TopAlbums> {
     override fun asDomain(): TopAlbums {
-        return TopAlbums(albumDTO.map { it.asDomain() }, attrDTO.asDomain())
+        return TopAlbums(albumDTO.map { it.asDomain() }, topAlbumAttrDTO.asDomain())
     }
 }

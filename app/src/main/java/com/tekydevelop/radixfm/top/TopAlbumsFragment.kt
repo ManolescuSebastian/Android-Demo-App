@@ -34,12 +34,17 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
 
         topAlbumsViewModel.getTopAlbumData()
         albumAdapter = AlbumAdapter {
+            //val imageCount = (it.image.size - 1)
+            //topAlbumsViewModel.insertSelectedAlbum(it.name, it.artist.name, it.image[imageCount].url)
 
-            val bundle = Bundle().apply {
-                putSerializable("album_item", it)
+            Bundle().apply {
+                if (it.mbid.isNullOrEmpty()) {
+                    Toast.makeText(requireContext(), "Album missing data (no mbid)", Toast.LENGTH_SHORT).show()
+                } else {
+                    putString("album_mbid", it.mbid)
+                    findNavController().navigate(R.id.action_Top_to_Details, this)
+                }
             }
-
-            findNavController().navigate(R.id.action_Top_to_Details, bundle)
         }
 
         binding.albumsRecycler.apply {

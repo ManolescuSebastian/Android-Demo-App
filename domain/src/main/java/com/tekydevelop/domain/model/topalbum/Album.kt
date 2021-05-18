@@ -7,7 +7,7 @@ data class Album(
     val url: String,
     val mbid: String,
     val artist: Artist,
-    val attr: AlbumAttr,
+    val attr: Attr,
     val image: List<Image>,
     val playCount: String
 ) : Serializable

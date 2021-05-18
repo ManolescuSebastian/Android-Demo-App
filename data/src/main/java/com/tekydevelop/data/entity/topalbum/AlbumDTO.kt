@@ -2,6 +2,9 @@ package com.tekydevelop.data.entity.topalbum
 
 import com.google.gson.annotations.SerializedName
 import com.tekydevelop.data.common.DomainMappable
+import com.tekydevelop.data.entity.common.AttrDTO
+import com.tekydevelop.data.entity.common.ArtistDTO
+import com.tekydevelop.data.entity.common.ImageDTO
 import com.tekydevelop.domain.model.topalbum.Album
 
 data class AlbumDTO(
@@ -11,7 +14,7 @@ data class AlbumDTO(
     @SerializedName("artist")
     val artistDTO: ArtistDTO,
     @SerializedName("@attr")
-    val attrDTO: AlbumAttrDTO,
+    val attrDTO: AttrDTO,
     @SerializedName("image")
     val imageDTO: List<ImageDTO>,
     @SerializedName("playcount")

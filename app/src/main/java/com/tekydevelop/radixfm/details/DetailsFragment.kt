@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.tekydevelop.domain.model.topalbum.Album
 import com.tekydevelop.radixfm.R
 import com.tekydevelop.radixfm.base.BaseFragment
 import com.tekydevelop.radixfm.databinding.FragmentDetailsBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBinding::inflate) {
+
+    private val detailsViewModel: DetailsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,19 +24,31 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        initObserver()
     }
 
     private fun initData() {
-        val model: Album? = arguments?.getSerializable("album_item") as Album?
-        model?.let {
-            binding.albumName.text = it.name
-            binding.artistName.text = it.artist.name
+        val mbid: String? = arguments?.getString("album_mbid")
+        mbid?.let { detailsViewModel.getAlbumDetails(it) }
+    }
 
-            //todo fix load(it.image[3].url)
-            Glide.with(requireContext())
-                .load(it.image[3].url)
-                .error(R.drawable.placeholder)
-                .into(binding.albumCover)
+    private fun initObserver() {
+        detailsViewModel.albumInfoResult.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.albumName.text = it.album.name
+                binding.artistName.text = it.album.artist
+
+                val imageCount = (it.album.image.size - 1)
+
+                Glide.with(requireContext())
+                    .load(it.album.image[imageCount].url)
+                    .error(R.drawable.placeholder)
+                    .into(binding.albumCover)
+            }
+        }
+
+        detailsViewModel.error.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), "Error: $it", Toast.LENGTH_SHORT).show()
         }
     }
 

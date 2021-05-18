@@ -1,16 +1,19 @@
 package com.tekydevelop.data.di
 
 import android.app.Application
-import androidx.constraintlayout.solver.Cache
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tekydevelop.data.BuildConfig
 import com.tekydevelop.data.common.AuthInterceptor
+import com.tekydevelop.data.repository.album.AlbumDetailsRepo
+import com.tekydevelop.data.repository.album.AlbumLocalRepo
 import com.tekydevelop.data.repository.artist.TopAlbumsDataRepo
 import com.tekydevelop.data.repository.search.SearchDataRepo
 import com.tekydevelop.data.services.AlbumService
 import com.tekydevelop.data.services.ArtistService
+import com.tekydevelop.domain.repository.AlbumDetailsRepository
+import com.tekydevelop.domain.repository.AlbumRepository
 import com.tekydevelop.domain.repository.SearchRepository
 import com.tekydevelop.domain.repository.TopAlbumsRepository
 import okhttp3.Interceptor
@@ -66,4 +69,9 @@ val apiModule = module {
 
     single<TopAlbumsRepository> { TopAlbumsDataRepo(get()) }
     single<SearchRepository> { SearchDataRepo(get()) }
+    single<AlbumDetailsRepository> { AlbumDetailsRepo(get()) }
+
+    single<AlbumRepository> { AlbumLocalRepo(get()) }
+
+
 }

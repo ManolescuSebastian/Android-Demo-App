@@ -46,6 +46,11 @@
         android:id="@+id/SearchFragment"
         android:name="com.tekydevelop.radixfm.search.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_Top_to_Details"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
 </navigation>

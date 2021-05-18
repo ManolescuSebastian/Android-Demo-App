@@ -1,7 +1,7 @@
 package com.tekydevelop.data.entity.search
 
 import com.tekydevelop.data.common.DomainMappable
-import com.tekydevelop.data.entity.topalbum.ImageDTO
+import com.tekydevelop.data.entity.common.ImageDTO
 import com.tekydevelop.domain.model.search.SearchAlbum
 
 data class SearchAlbumDTO(

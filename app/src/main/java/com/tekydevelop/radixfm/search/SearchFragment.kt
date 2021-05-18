@@ -36,7 +36,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun initData() {
         searchAdapter = SearchAdapter {
-
+            Bundle().apply {
+                if (it.mbid.isNullOrEmpty()) {
+                    Toast.makeText(requireContext(), "Album missing data (no mbid)", Toast.LENGTH_SHORT).show()
+                } else {
+                    putString("album_mbid", it.mbid)
+                    findNavController().navigate(R.id.action_Top_to_Details, this)
+                }
+            }
         }
 
         binding.searchAlbumsRecycler.apply {

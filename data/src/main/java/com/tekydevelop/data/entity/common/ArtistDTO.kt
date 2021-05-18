@@ -1,4 +1,4 @@
-package com.tekydevelop.data.entity.topalbum
+package com.tekydevelop.data.entity.common
 
 import com.tekydevelop.data.common.DomainMappable
 import com.tekydevelop.domain.model.topalbum.Artist

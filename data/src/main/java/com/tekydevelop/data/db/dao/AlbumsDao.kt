@@ -17,4 +17,7 @@ interface AlbumsDao {
 
     @Query("DELETE FROM AlbumEntity")
     fun deleteAlbums()
+
+    @Query(value = "SELECT * FROM AlbumEntity WHERE mbid=:mbid")
+    fun findAlbumById(mbid: String): AlbumEntity
 }

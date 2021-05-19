@@ -1,15 +1,21 @@
 package com.tekydevelop.radixfm.ui.top
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.tekydevelop.radixfm.R
 import com.tekydevelop.radixfm.base.BaseFragment
 import com.tekydevelop.radixfm.databinding.FragmentTopAlbumsBinding
 import com.tekydevelop.radixfm.ui.top.adapter.TopAlbumAdapter
+import com.tekydevelop.radixfm.util.NetworkHelper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbumsBinding::inflate) {
@@ -30,13 +36,28 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
     }
 
     private fun initData() {
-        showLoadingIndicator(true)
+        if(!NetworkHelper.isNetworkAvailable(requireContext())){
+            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
+            return
+        }
 
+        showLoadingIndicator(true)
         topAlbumsViewModel.getTopAlbumData()
+
         topAlbumAdapter = TopAlbumAdapter {
             if (it.image.isNotEmpty()) {
                 val imageCount = (it.image.size - 1)
-                topAlbumsViewModel.insertSelectedAlbum(it.mbid, it.name, it.artist.name, it.image[imageCount].url)
+
+                Glide.with(this)
+                    .asBitmap()
+                    .load(it.image[imageCount].url)
+                    .into(object : CustomTarget<Bitmap>(){
+                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                            topAlbumsViewModel.insertSelectedAlbum(it.mbid, it.name, it.artist.name, it.image[imageCount].url, resource)
+                        }
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                        }
+                    })
             }
 
             Bundle().apply {

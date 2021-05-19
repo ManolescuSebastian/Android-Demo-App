@@ -1,5 +1,6 @@
 package com.tekydevelop.radixfm.ui.top
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,9 +34,9 @@ class TopAlbumsViewModel(private val topAlbumsUseCase: TopAlbumsUseCase, private
         }
     }
 
-    fun insertSelectedAlbum(mbid: String, album: String, artist: String, imageUrl: String) {
+    fun insertSelectedAlbum(mbid: String, album: String, artist: String, imageUrl: String, resource: Bitmap) {
         CoroutineScope(Dispatchers.IO).launch {
-            albumDbUseCase.insertAlbum(mbid, album, artist, imageUrl)
+            albumDbUseCase.insertAlbum(mbid, album, artist, imageUrl, resource)
         }
     }
 

@@ -69,7 +69,7 @@ val apiModule = module {
 
     single<TopAlbumsRepository> { TopAlbumsDataRepo(get()) }
     single<SearchRepository> { SearchDataRepo(get()) }
-    single<AlbumDetailsRepository> { AlbumDetailsRepo(get()) }
+    single<AlbumDetailsRepository> { AlbumDetailsRepo(get(), get()) }
 
     single<AlbumRepository> { AlbumLocalRepo(get()) }
 

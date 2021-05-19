@@ -11,6 +11,7 @@ import com.tekydevelop.radixfm.R
 import com.tekydevelop.radixfm.base.BaseFragment
 import com.tekydevelop.radixfm.databinding.FragmentDetailsBinding
 import com.tekydevelop.radixfm.ui.details.adapter.TracksAdapter
+import com.tekydevelop.radixfm.util.NetworkHelper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBinding::inflate) {
@@ -33,11 +34,9 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
 
     private fun initData() {
         val mbid: String? = arguments?.getString("album_mbid")
-        mbid?.let { detailsViewModel.getAlbumDetails(it) }
+        mbid?.let { detailsViewModel.getAlbumDetails(it, NetworkHelper.isNetworkAvailable(requireContext())) }
 
-        tracksAdapter = TracksAdapter {
-
-        }
+        tracksAdapter = TracksAdapter()
 
         binding.tracksRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -48,18 +47,23 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
     private fun initObserver() {
         detailsViewModel.albumInfoResult.observe(viewLifecycleOwner) {
             it?.let {
-                tracksAdapter.update(it.album.tracks.track)
+                it.tracks?.track?.let { track -> tracksAdapter.update(track) }
 
-                binding.albumName.text = it.album.name
-                binding.artistName.text = it.album.artist
+                binding.albumName.text = it.name
+                binding.artistName.text = it.artist
 
-                if (it.album.image.isNotEmpty()) {
-                    val imageCount = (it.album.image.size - 1)
-
-                    it.album.tracks
-
+                if (it.image?.isNotEmpty() == true) {
+                    val imageCount = (it.image?.size?.minus(1))
                     Glide.with(requireContext())
-                        .load(it.album.image[imageCount].url)
+                        .load(it.image!![imageCount!!].url)
+                        .centerCrop()
+                        .error(R.drawable.ic_placeholder)
+                        .into(binding.albumCover)
+                }
+
+                if (it.imageBitmap != null) {
+                    Glide.with(requireContext())
+                        .load(it.imageBitmap)
                         .centerCrop()
                         .error(R.drawable.ic_placeholder)
                         .into(binding.albumCover)
@@ -77,5 +81,4 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
         val searchMenuItem: MenuItem = menu.findItem(R.id.action_search)
         searchMenuItem.isVisible = false
     }
-
 }

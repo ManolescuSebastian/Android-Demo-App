@@ -12,6 +12,7 @@ import com.tekydevelop.radixfm.base.BaseFragment
 import com.tekydevelop.radixfm.databinding.FragmentSearchBinding
 import com.tekydevelop.radixfm.ui.search.adapter.SearchAdapter
 import com.tekydevelop.radixfm.util.KeyboardUtils
+import com.tekydevelop.radixfm.util.NetworkHelper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -54,6 +55,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun initEvents() {
         binding.searchAction.setOnClickListener {
+            if(!NetworkHelper.isNetworkAvailable(requireContext())){
+                Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             searchViewModel.searchAlbumByName(binding.searchTextInputField.text.toString())
             showLoadingIndicator(true)
             binding.noDataFound.visibility = View.GONE

@@ -1,8 +1,8 @@
 package com.tekydevelop.data.entity.details
 
 import com.google.gson.annotations.SerializedName
-import com.tekydevelop.data.mapper.DomainMappable
 import com.tekydevelop.data.entity.common.ImageDTO
+import com.tekydevelop.data.mapper.DomainMappable
 import com.tekydevelop.domain.model.details.AlbumInfo
 
 data class AlbumInfoData(
@@ -18,6 +18,6 @@ data class AlbumInfoData(
     val tracks: TracksData
 ) : DomainMappable<AlbumInfo> {
     override fun asDomain(): AlbumInfo {
-        return AlbumInfo(listeners, playCount, artist, image.map { it.asDomain() }, url, tags.asDomain(), wiki?.asDomain(), name, tracks.asDomain())
+        return AlbumInfo(listeners, playCount, artist, image.map { it.asDomain() }, url, tags.asDomain(), wiki?.asDomain(), name, tracks.asDomain(), null)
     }
 }

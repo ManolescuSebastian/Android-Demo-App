@@ -1,6 +1,3 @@
-#secure properties added to ignore so that I won't push the key by mistake
-secure.properties
-
 #
 .gradle
 /local.properties

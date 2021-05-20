@@ -9,5 +9,11 @@
 
     <string name="my_albums">My Album</string>
     <string name="top_albums">Top Album</string>
+    <string name="artist_name">Artist name</string>
+    <string name="album_name">Album name</string>
+    <string name="no_favorite_albums">No favorite albums</string>
+    <string name="search">Search</string>
+    <string name="no_album_found">No album found</string>
+    <string name="track_name">Track Name</string>
 
 </resources>

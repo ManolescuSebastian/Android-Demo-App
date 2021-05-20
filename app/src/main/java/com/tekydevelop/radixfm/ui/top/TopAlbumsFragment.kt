@@ -53,7 +53,7 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(FragmentTopAlbu
                     .load(it.image[imageCount].url)
                     .into(object : CustomTarget<Bitmap>(){
                         override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                            topAlbumsViewModel.insertSelectedAlbum(it.mbid, it.name, it.artist.name, it.image[imageCount].url, resource)
+                            it.image[imageCount].url?.let { it1 -> topAlbumsViewModel.insertSelectedAlbum(it.mbid, it.name, it.artist.name, it1, resource) }
                         }
                         override fun onLoadCleared(placeholder: Drawable?) {
                         }

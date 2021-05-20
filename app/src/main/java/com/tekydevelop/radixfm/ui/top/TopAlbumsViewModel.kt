@@ -3,41 +3,31 @@ package com.tekydevelop.radixfm.ui.top
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tekydevelop.domain.model.topalbum.TopAlbumsData
 import com.tekydevelop.domain.usecase.AlbumDbUseCase
 import com.tekydevelop.domain.usecase.TopAlbumsUseCase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
+import com.tekydevelop.radixfm.base.BaseViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class TopAlbumsViewModel(private val topAlbumsUseCase: TopAlbumsUseCase, private val albumDbUseCase: AlbumDbUseCase) : ViewModel() {
+class TopAlbumsViewModel(private val topAlbumsUseCase: TopAlbumsUseCase, private val albumDbUseCase: AlbumDbUseCase) : BaseViewModel() {
 
     val topAlbums: LiveData<TopAlbumsData> get() = _topAlbums
     private val _topAlbums = MutableLiveData<TopAlbumsData>()
 
-    val error: LiveData<String> get() = _error
-    private val _error = MutableLiveData<String>()
-
     fun getTopAlbumData() {
         viewModelScope.launch {
-            topAlbumsUseCase.getTopAlbums().onStart {
-            }.catch { e ->
-                _error.value = e.localizedMessage
-            }.collect {
+            topAlbumsUseCase.getTopAlbums().onEach {
                 _topAlbums.value = it
-            }
+            }.handleErrors().collect()
         }
     }
 
     fun insertSelectedAlbum(mbid: String, album: String, artist: String, imageUrl: String, resource: Bitmap) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             albumDbUseCase.insertAlbum(mbid, album, artist, imageUrl, resource)
         }
     }
-
 }

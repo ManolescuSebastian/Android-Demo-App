@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.tekydevelop.domain.model.entity.AlbumItem
 import com.tekydevelop.radixfm.R
 
-class AlbumAdapter(private val listener: (AlbumItem) -> Unit) : RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
+class AlbumAdapter(private val listener: (AlbumItem) -> Unit, private val longPressListener: (AlbumItem) -> Unit) : RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
 
     private var context: Context? = null
     private var albumItem: List<AlbumItem> = mutableListOf()
@@ -37,6 +37,10 @@ class AlbumAdapter(private val listener: (AlbumItem) -> Unit) : RecyclerView.Ada
         holder.albumName.text = item.album
         holder.artistName.text = item.artist
         holder.itemRoot.setOnClickListener { listener(item) }
+        holder.itemRoot.setOnLongClickListener {
+            longPressListener(item)
+            true
+        }
 
         if (context != null) {
             Glide.with(context!!)

@@ -14,4 +14,8 @@ class AlbumDbUseCase(private val albumRepository: AlbumRepository) {
     suspend fun loadAlbums(): Flow<List<AlbumItem>?> {
         return albumRepository.loadAlbumData()
     }
+
+    suspend fun deleteAlbumById(mbid: String): Flow<Int?>{
+       return albumRepository.deleteAlbumById(mbid)
+    }
 }

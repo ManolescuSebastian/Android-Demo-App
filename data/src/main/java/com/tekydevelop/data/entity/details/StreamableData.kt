@@ -6,9 +6,9 @@ import com.tekydevelop.domain.model.details.Streamable
 
 data class StreamableData(
     @SerializedName("fulltrack")
-    val fullTrack: String,
+    val fullTrack: String?,
     @SerializedName("#text")
-    val text: String
+    val text: String?
 ) : DomainMappable<Streamable> {
     override fun asDomain(): Streamable {
         return Streamable(fullTrack, text)

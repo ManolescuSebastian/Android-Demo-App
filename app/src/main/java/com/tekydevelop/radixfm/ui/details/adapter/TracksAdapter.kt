@@ -32,8 +32,8 @@ class TracksAdapter : RecyclerView.Adapter<TracksAdapter.ViewHolder>() {
         val item = trackList[position]
 
         holder.trackName.text = item.name
-        holder.artistName.text = item.artist.name
-        holder.duration.text = Helper.formatDuration(item.duration)
+        holder.artistName.text = item.artist?.name
+        holder.duration.text = item.duration?.let { Helper.formatDuration(it) }
     }
 
     override fun getItemCount(): Int {

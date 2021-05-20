@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tekydevelop.radixfm.R
@@ -54,7 +55,7 @@ class AlbumFragment : BaseFragment<FragmentAlbumsBinding>(FragmentAlbumsBinding:
     private fun initData() {
         albumViewModel.loadAlbumsData()
 
-        albumAdapter = AlbumAdapter {
+        albumAdapter = AlbumAdapter({
             Bundle().apply {
                 if (it.mbid.isNullOrEmpty()) {
                     Toast.makeText(requireContext(), "Album missing data (no mbid)", Toast.LENGTH_SHORT).show()
@@ -63,7 +64,9 @@ class AlbumFragment : BaseFragment<FragmentAlbumsBinding>(FragmentAlbumsBinding:
                     findNavController().navigate(R.id.action_MyAlbums_to_Details, this)
                 }
             }
-        }
+        }, {
+            deleteAlbumConfirmationDialog(it.mbid)
+        })
 
         binding.albumsRecycler.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -77,8 +80,35 @@ class AlbumFragment : BaseFragment<FragmentAlbumsBinding>(FragmentAlbumsBinding:
             binding.noData.visibility = View.GONE
         }
 
+        albumViewModel.deletedItem.observe(viewLifecycleOwner) {
+            albumViewModel.loadAlbumsData()
+            Toast.makeText(requireContext(), "Album deleted", Toast.LENGTH_SHORT).show()
+        }
+
         albumViewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), "Error: $it", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun deleteAlbumConfirmationDialog(mbid: String) {
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("Album")
+        alertDialog.setMessage("Do you want to delete the selected album?")
+        alertDialog.setPositiveButton("Yes") { _, _ ->
+            albumViewModel.deleteAlbumById(mbid)
+        }
+        alertDialog.setNegativeButton("Cancel") { dialog, id ->
+            dialog.cancel()
+        }
+
+        val alert = alertDialog.create()
+        alert.setCanceledOnTouchOutside(false)
+        alert.show()
+/*        val negativeButton = alert.getButton(DialogInterface.BUTTON_NEGATIVE)
+        negativeButton.setTextColor(Color.RED)
+
+        val positiveButton = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+        positiveButton.setTextColor(Color.GREEN)*/
+    }
+
 }

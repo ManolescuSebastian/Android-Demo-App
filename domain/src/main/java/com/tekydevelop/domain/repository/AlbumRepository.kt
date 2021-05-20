@@ -8,4 +8,5 @@ interface AlbumRepository {
 
     suspend fun insertSelectedAlbum(mbid: String, album: String, artist: String, imageUrl: String, resource: Bitmap)
     suspend fun loadAlbumData(): Flow<List<AlbumItem>?>
+    suspend fun deleteAlbumById(mbid: String): Flow<Int?>
 }

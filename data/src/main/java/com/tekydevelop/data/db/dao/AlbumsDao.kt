@@ -15,9 +15,12 @@ interface AlbumsDao {
     @Query(value = "SELECT * FROM AlbumEntity LIMIT 50")
     fun loadAlbums(): List<AlbumEntity>
 
-    @Query("DELETE FROM AlbumEntity")
-    fun deleteAlbums()
-
     @Query(value = "SELECT * FROM AlbumEntity WHERE mbid=:mbid")
     fun findAlbumById(mbid: String): AlbumEntity
+
+    @Query(value ="DELETE FROM AlbumEntity WHERE mbid=:mbid")
+    fun deleteById(mbid: String): Int
+
+    @Query(value = "DELETE FROM AlbumEntity")
+    fun deleteAlbums()
 }
